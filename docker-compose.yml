@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  bot:
+    build: .
+    container_name: mirostrah_bot
+    restart: unless-stopped
+    env_file:
+      - ..env
+    environment:
+      - DATABASE_URL=sqlite+aiosqlite:////app/data/mirostrah_bot.db
+    volumes:
+      - bot_data:/app/data
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  bot_data:
